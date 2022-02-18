@@ -108,9 +108,9 @@ do
         "5")
             Delete_group
             ;;
-	    "6")
-	        list_users
-	        ;;
+	"6")
+	    list_users
+	    ;;
         "7")
             valid=false
             break
