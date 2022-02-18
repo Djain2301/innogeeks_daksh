@@ -26,7 +26,7 @@ new_group(){
     then 
     echo "group created"
     else
-    echo "grpup not created"
+    echo "group not created"
     fi
 }
 
