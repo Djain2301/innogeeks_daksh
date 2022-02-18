@@ -2,15 +2,14 @@
 new_user(){
     echo "enter the new user name"
     read user_name
-    #echo "Do you want the home directory to be made with the user? type [y/n]"
-    #read ch
-    #if [ $ch=="y" ]
-    #then
-    #`useradd -m $user_name`
-    #else
-    #`useradd $user_name`
-    #fi
+    echo "Do you want the home directory to be made with the user? type [y/n]"
+    read ch
+    if [ $ch=="y" ]
+    then
+    `useradd -m $user_name`
+    else
     `useradd $user_name`
+    fi
     if [ $? -eq 0 ]
     then 
     echo "User created"
