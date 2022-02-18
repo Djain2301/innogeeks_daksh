@@ -16,6 +16,7 @@ new_user(){
     else
     echo "User not created"
     fi
+
 }
 
 new_group(){
@@ -68,20 +69,29 @@ Delete_group(){
     fi
 }
 
+list_users(){
+    echo "here is a list of all users on your system"
+    awk -F':' '{ print $1}' /etc/passwd
+}
+
 echo "Hi there! Please enter your name"
 read name
 echo "Hi $name"
-echo "What do you want to do?"
-echo "1. Add a new user"
-echo "2. Add a new group"
-echo "3. Change password for an existing user"
-echo "4. Delete an user"
-echo "5. Delete a group"
-echo "6. Exit"
-read choice
+
+
+
 valid=true
 while [ $valid ]
 do
+    echo -e "\nWhat do you want to do?"
+    echo "1. Add a new user"
+    echo "2. Add a new group"
+    echo "3. Change password for an existing user"
+    echo "4. Delete an user"
+    echo "5. Delete a group"
+    echo "6. List all the users"
+    echo "7. Exit"
+    read choice
     case "$choice" in
         "1") 
             new_user
@@ -98,7 +108,10 @@ do
         "5")
             Delete_group
             ;;
-        "6")
+	    "6")
+	        list_users
+	        ;;
+        "7")
             valid=false
             break
             ;;
