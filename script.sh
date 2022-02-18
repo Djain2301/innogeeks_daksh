@@ -77,23 +77,32 @@ echo "2. Add a new group"
 echo "3. Change password for an existing user"
 echo "4. Delete an user"
 echo "5. Delete a group"
+echo "6. Exit"
 read choice
-case "$choice" in
-    "1") 
-        new_user
-        ;;
-    "2") 
-        new_group
-        ;;
-    "3") 
-        password
-        ;;
-    "4") 
-        Delete_user
-        ;;
-    "5")
-        Delete_group
-        ;;
-    *) echo "Enter a valid choice" 
-    ;;
-esac
+valid=true
+while [ $valid ]
+do
+    case "$choice" in
+        "1") 
+            new_user
+            ;;
+        "2") 
+            new_group
+            ;;
+        "3") 
+            password
+            ;;
+        "4") 
+            Delete_user
+            ;;
+        "5")
+            Delete_group
+            ;;
+        "6")
+            valid=false
+            break
+            ;;
+        *) echo "Enter a valid choice" 
+            ;;
+    esac
+done
