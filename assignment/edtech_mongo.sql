@@ -1,3 +1,6 @@
+-- question statment:: Create a Simple Table Structure with MongoDB for an EduTech where Students enroll for the courses
+--which are defined by admin, sessions, assignments and use simple InsertMany to register the records.
+
 use edtech
 
 db.edtech.insertMany(

@@ -1,3 +1,7 @@
+--question statement:: 1. Craete a PostGRES Database Structure with relations and form correct views with triggers for an E-Commerce Admin Panel 
+--where admin can create roles, users, permissions, products, categories, manage orders, manage invoices etc.
+--Use your creativity but make sure you demonstrate the proper usage of triggers and views as and where applicable even with lesser number of tables. 
+
 -- roles table
 create table roles(
 	roles_id serial primary key,
