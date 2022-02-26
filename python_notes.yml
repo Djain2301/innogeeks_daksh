@@ -1,0 +1,102 @@
+- '#' for comments in python
+- program to add two numbers
+  - 
+    firstno =  input("Enter the first number : ")
+    print(firstno)
+    secondno=  input("enter the second number : ")
+    print(secondno)
+    result=int(firstno)+int(secondno)
+    print(f"Total of {firstno} and {secondno} is {result}")
+- print(type(<variable>)) --> to find the datatype 
+- convert celsius to farenheit
+  - 
+    celsius= float(input("Type in the temperature in celsius: "))
+    farenheit= (celsius *1.8)+32
+    print(f"{celsius} degree celsius is equal to {farenheit} degree farenheit")
+    #string formatting using f and {}
+- square root of a number
+  -
+    import math #math module
+    myno= int(input("enter your no. "))
+    result= math.sqrt(myno)
+    print("square root of %d =%.3f" %(myno,result)) # the last line prints the result uptop 3 decimal places
+- arithmetic operators  
+  - x//y --> only the quitient part
+  - x/y --> exact division
+  - x%y --> remainder
+    - 
+      number=int(input("enter the number: "))
+      result=number%7
+      if(result==0):
+          print("divisible")
+      else:
+          print("Not divisible")
+  - x**y -> x raise to the power 4
+- loops
+  - two types only
+    - for loop 
+      -
+        for x in range(1,10): #(starting number, ending number)
+          print(x) #ending number is not included
+      - for x in range (starting, upto_this_number, increment/decrement)
+        - decrement means if we write -1, then reverse order will be printed
+    - while loop
+      - 
+        choice="Y"
+        while(choice=="Y" or choice=="y"):
+          name=input("enter your name: ")
+          salary= int(input("Enter yourt salary: "))
+          print("NAME\t\t\t\t\tMonthly Salary")
+          print("****\t\t\t\t\t**************")
+          print(f"{name}\t\t\t\t\t{salary}")
+          choice= input("want to continue? ")
+  - there is no switch case statement
+- perfect number
+  - # a number is perfect if the sum of its divisors is equal to that number
+    # eg 6
+    myno=int(input("Enter the number: "))
+    sum=0
+    for i in range (1, myno):
+        if(myno%i == 0):
+            sum+=i
+    if(sum==myno):
+        print(f'{myno} is a perfect number')
+    else:
+        print(f'{myno} is not a perfect number')
+- string and its function
+  - .upper() --> all uppercase
+  - .lower() --> all lowercase
+  - .title() --> capital first letter of each word
+  - .capitalize() --> capitalise the very first letter only
+  - len(string) --> to check the length of the string
+  - .strip() --> removes the whitespaces from both ends
+  - .endswith("sometext") --> returns 1 or 0
+  - string.isdigit() --> tells if every character is a digit or not
+  - .split() --> splitting words into different part, esentially makes an arrayof words
+    - by default splits with spaces
+    - as it is a list, we can store it in a variable
+      - words= mystr.split()
+    -
+      ip=input("enter your ip address: ")
+      ip=ip.split(".") # it is an list
+      print("list of octats are: ")
+      for x in ip: ##iterating the list
+          print(x)
+  - string manipulation / string slicing
+    - stringname[from:upto]
+      - upto is not included
+        - eg:
+          str="Innovaccer"
+          shor=shortname[0:3]
+          print(shor) #output: Inn
+    - stringname[:x] --> if nothing before colon, default starts from 0
+    - stringname[x:] --> if nothing after colon, default ends at the very end
+    - stringname[::-1] --> to REVERSE the string
+    - plaindrome
+      abc=input("enter string: ")
+      rev=abc[::-1]
+      if(rev==abc):
+          print("yes")
+      else:
+          print("no")
+    
