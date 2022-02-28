@@ -92,7 +92,7 @@
     - stringname[:x] --> if nothing before colon, default starts from 0
     - stringname[x:] --> if nothing after colon, default ends at the very end
     - stringname[::-1] --> to REVERSE the string
-    - plaindrome
+    - palindrome
       abc=input("enter string: ")
       rev=abc[::-1]
       if(rev==abc):
@@ -100,3 +100,303 @@
       else:
           print("no")
     
+- collections --> a variable which can contain more than one value
+  - types of collections
+    - list
+    - tuple
+    - set
+    - dict
+  - del(<name of variable>) --> to delete from memory
+  - list
+    - array is homogenous, but list need not to be
+    - it is ordered and changeable (mutable)
+    - allow duplicate members
+    - defined using --> putting values in [] separated by ,
+    - example --> ['hello', 'linux', 'os']
+    - most flexible component
+    - 
+      course1=['sql server', 'azure', 'openstack', 'python','aws', 'java', 'linux']
+      course2=['softskills', 'time management', 'managerial behaviour', 'sharp communication']
+      print(course1) #printing the list
+      print(course2)
+      courses =course1 + course2 #combining both the lists
+      print(courses)
+    - .sort() --> sorting the list
+
+      course1=['sql server', 'azure', 'openstack', 'python','aws', 'java', 'linux']
+      course2=['softskills', 'time management', 'managerial behaviour', 'sharp communication']
+      courses =course1 + course2
+      courses.sort() # sorting the list
+      for x in courses:   
+          print(x) # printing courses individually
+    - .sort(reverse=True) --> will reverse in descending order
+
+      course1=['sql server', 'azure', 'openstack', 'python','aws', 'java', 'linux']
+      course2=['softskills', 'time management', 'managerial behaviour', 'sharp communication']
+      courses =course1 + course2
+      courses.sort(reverse=True)
+      for x in courses:   
+          print(x)
+    - .append(<element_to_be_inserted") --> add the item at the end of the list
+    - .extend() --> appends an iterable (tuple, list) to the end of list
+      - it modifies the list, nothing new is created
+    - .pop() --> remove item from the last (by default)
+      - we can give index as .pop(0), it will remove element at index 0
+    - .remove() --> remove element from the list (first instance)
+
+      course1=['sql server', 'azure', 'openstack', 'python','aws', 'java', 'linux']
+      course2=['softskills', 'time management', 'managerial behaviour', 'sharp communication']
+      # print(course1)
+      # print(course2)
+      courses =course1 + course2
+      courses.insert(3,'hello')
+      courses.remove('hello') # removes the first instances of hello from the list
+      for x in courses:   
+          print(x)
+    - .insert(position, element) --> insert the element at particular position
+
+      course1=['sql server', 'azure', 'openstack', 'python','aws', 'java', 'linux']
+      course2=['softskills', 'time management', 'managerial behaviour', 'sharp communication']
+      # print(course1)
+      # print(course2)
+      courses =course1 + course2
+      courses.insert(3,'hellloooo') #insert at index 3
+      for x in courses:   
+          print(x)
+    - .len(<listname>) --> counts the number of elements
+    - searching in list --> using in, which is an membership operator
+      - the below code also handles the case sensitivity
+      - other way can be to create a blank list and appending title cased elements from course 1
+
+      course1=["Sql Server","Azure","OpenStack","Python Programming","AWS","Java","Linux"] 
+      #course2=['softskills', 'time management', 'managerial behaviour', 'sharp communication']
+      coursename=input("Enter coursename to search: ").strip().title()
+      flag=0
+      for x in course1:
+          if(coursename == x.title()):
+              flag=1
+              break
+          else:
+              continue
+      if(flag):
+          print('%s is available' %coursename)
+      else:
+          print('%s is not available' %coursename)
+    - 
+      pricelist=[650,700,290,710,1200,840,535,542]
+      print(max(pricelist)) #maxvalue
+      print(min(pricelist)) #minvalue
+      print(sum(pricelist)) #sum of all values
+      print("average= %.2f" %(round(sum(pricelist)/len(pricelist))))
+    -
+      ##LAB##
+      feedbackmail=['akanksha.gupta@sify.com','Deepak.sharma@sify.com','karan.Bhatia@sify.com','sarah.baswa@sify.com','raveesh.bhatt@sify.com','sheetal@Hotmail.com','jatin.sai@saidata.com','andy.maggy@colt.net','prashun.das@sify.com']
+      fromSify=[]
+      fromOther=[]
+
+      for i in feedbackmail:
+          if(i.endswith('@sify.com')):
+              fromSify.append(i)
+          else:
+              fromOther.append(i)
+
+
+      print("\n\nparticipant from sify: \n",fromSify)
+      print("\n\nparticipants from other entities: \n",fromOther)
+
+
+      lettermails=[]
+      for i in feedbackmail:
+          if(i.startswith('s') or i.startswith('p')):
+              lettermails.append(i)
+
+      print("\n\nList with elements starting from p or s: ", lettermails)
+
+      email=input("\n\nEnter email to search: ").strip().lower()
+      flag=0
+      for i in feedbackmail:
+          if(email==i.lower()):
+              flag=1
+              break
+          else:
+              flag=0
+              continue
+
+      if(flag):
+          print("%s is available" %email)
+      else:
+          print("%s is not available" %email)
+  
+  - Tuple
+    - immutable (cant be changed)
+    - enclosed in (), separated by ,
+    - can't perform .sort()
+    - as we can't make any changes so we can typecast it into list to do changes
+      - new_list=list(old_tuple)
+      - and then again convert it to tuple
+      - old_tuple=tuple(new_list)
+    - len () --> can be done
+    - max, min etc can also be done
+    -
+      stations=('New Delhi','Agra','Kanpur','Aligarh','Mughalsarai','Kanpur' ,'Allahabad') 
+      new_list=list(stations)
+      for i in range(len(new_list)):
+          if(new_list[i]=="Mughalsarai"):
+              new_list[i]="Deen Dayal Upadhaya"
+          elif(new_list[i]=="Allahabad"):
+              new_list[i]="Prayagraj"
+
+      stations=tuple(new_list)
+
+      print(stations)
+
+  - Set
+    - enlosed in {} and separated using ,
+    - same as set in C++, but not sorted by default
+    - can be compared using ==
+      myset={"Anushka","Rajat","Hitesh","Imran","Jatin","Rajinder","Neelam"} 
+      projectset={"Rajat", "Imran", "Jatin", "Rajinder", "Anushka", "Neelam", "Hitesh"}
+      print(myset==projectset)
+    - order doesn't matter in set
+    - can't contain any duplicate values
+    - also use typecasting to remove duplicate elements from lists etc
+    - sorting is not possible, but addition and deletion are
+    - myset=set() --> to create an empty set
+    - .add() --> to add value in the set
+
+      myset=set()
+      while True:
+          countryname=input("Enter the country name: ").strip().title()
+          myset.add(countryname)
+          choice=input("want to continue? ").strip().upper()
+          if choice=="Y":
+              continue
+          else:
+              break
+
+      print("The locations are: ")
+      for x in myset:
+          print(x)
+
+    - .remove() --> to remove, duh
+    - set1-set2 --> tells the difference in set, no of differnt elemenets
+    - set1 & set2 --> intersection, common elements
+    - set1 | set2 --> union, all elements, no duplicacy
+      - can use set1.union(set2) also
+    - 
+      # Other Operations on Set 
+      pricorus={"Sales","IT","CSO","FSO","LDM"} 
+      symphony={"Sales","CSO","Purchase","HR","Admin"} 
+      # symmphony has procured pricorous 
+      newdepts=pricorus - symphony # Finding the Difference 
+      print("New Depts To Be Formed") 
+      print(newdepts) 
+      print("Total New Depts = %d " %(len(newdepts))) 
+
+      cdept=pricorus & symphony # & stands for intersection 
+      print("Common Depts To Be Formed") 
+      print(cdept) 
+      print("Total Common Depts = %d "%(len(cdept))) 
+
+      alldepts=symphony | pricorus # | means Union 
+      print("Overall Depts Are") 
+      print(alldepts) 
+      print("Total Depts=%d" %len(alldepts)) 
+
+  - Dictionary
+    - enclosed in {}, separated by ,. But there are key value pairs
+    - dictionary = { key : value}
+    - key value pair makes one element
+    -  
+      projectset={"P001":("Appraisal Process","Hyderabad",25,"22-Feb-22"),
+                  "P022":("HR Recruitment","Kolkata",16,"22-Feb-22"), 
+                  "P090":("SAP Updation","Bengaluru",16,"23-Feb-22"), 
+                  "P023":("HR Recruitment","Mumbai"), 
+                  "P009":("Tax Updation","Kolkata",20)} 
+      print(projectset)
+    - len(dict_name) can also be used
+    - <dict_name>.keys() --> returns the list of keys
+    - <dict_name>.values() --> list of all the values
+    - dictionary doesn't allows duplicate values
+      - value gets overridden if key repeats
+    - dict1.update(dict2) --> to combine multiple dictionaries
+      -
+        projectset={"P001":("Appraisal Process","Hyderabad",25,"22-Feb-22"),
+                    "P022":("HR Recruitment","Kolkata",16,"22-Feb-22"), 
+                    "P090":("SAP Updation","Bengaluru",16,"23-Feb-22"), 
+                    "P023":("HR Recruitment","Mumbai"), 
+                    "P009":("Tax Updation","Kolkata",20)} 
+        newdict ={"P008" : "hello"}
+
+        projectset.update(newdict)
+        print(projectset)
+    - searching is possible on only key
+      - if(pcode in projectset.keys()):
+            print("found")
+        else:
+            print("not found")
+    - <dict_name>.get(key) --> gives the value corresponding to that key
+    - IMP -> to concatinate two output we need to typecast as str
+      - we can also concatinate using , . no need to typecast then
+    - we cant use slicing
+    - <dict_name>.items() --> will return both key and values
+    - <dict_name>.clear --> removes all the elements
+    - mydict={} --> creates a blank dictionary
+    - sorting the dictionary
+    - use sorted() --> sorts on the basis of key
+
+      dict1={'key1' : 'value1', 'key2':'value2', 'key3':'value3', 'key4':'value4'}
+      dict2={'key97':'value97', 'key4':'value4', 'key99':'value99'}
+
+      dict1.update(dict2)
+
+      print(sorted(dict1, reverse=True)) #prints the sorted dictionary basis on the key values
+
+- installing pip and other packages
+  - sudo apt update
+  - sudo apt install python3-pip
+  - sudo pip install numpy
+  - sudo pip install pandas
+  - sudo pip install openpyxl --> to run excel files through python
+
+- importing self created modules were discussed
+
+- Lambda map
+  - lambda/lambda expression --> known as anonymous functions
+  - Lambdas are useful to write oneline code instead of making a function 
+  - 
+    import math
+    findsqroot= lambda x:math.sqrt(x) # this is the lambda syntax
+
+    val=int(input("Enter value to find square root of: "))
+    print(findsqroot(val))
+  - what we wrote after : in the funciton, will be returned
+  - useful for only oneline code
+  - not generally advisable
+  - using map() to calculate sqroot of whole list in one go
+    # use map when no condition is involved
+    
+    import math
+    findsqroot= lambda x:math.sqrt(x)
+
+    mylist=[34,45,29,65,64,81,85,18,46]
+    resultlist=map(findsqroot, mylist)
+    print(list(resultlist)) #typecasting becasue map return memory address
+
+  - map(the function, iteratable container)
+  - filter example --> separate list for sify and other emails using lambda function
+    feedbackmail=['akanksha.gupta@sify.com',
+        'Deepak.sharma@sify.com','karan.Bhatia@sify.com',
+        'sarah.baswa@sify.com','raveesh.bhatt@sify.com',
+        'sheetal@Hotmail.com','jatin.sai@saidata.com',
+        'andy.maggy@colt.net','prashun.das@sify.com']
+
+    lambda1=lambda s: s.endswith("@sify.com")
+    lambda2=lambda s: not s.endswith("@sify.com")
+
+    sifylist= filter( lambda1, feedbackmail )
+    nonsifylist=filter(lambda2, feedbackmail)
+    #filter is used when some condition is involved
+
+    print(list(sifylist))
+    print(list(nonsifylist))
