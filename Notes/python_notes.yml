@@ -16,10 +16,10 @@
     #string formatting using f and {}
 - square root of a number
   -
-    import math #math module
+    import math       #math module
     myno= int(input("enter your no. "))
     result= math.sqrt(myno)
-    print("square root of %d =%.3f" %(myno,result)) # the last line prints the result uptop 3 decimal places
+    print("square root of %d =%.3f" %(myno,result))     # the last line prints the result uptop 3 decimal places
 - arithmetic operators  
   - x//y --> only the quitient part
   - x/y --> exact division
@@ -36,8 +36,8 @@
   - two types only
     - for loop 
       -
-        for x in range(1,10): #(starting number, ending number)
-          print(x) #ending number is not included
+        for x in range(1,10):       #(starting number, ending number)
+          print(x)            #ending number is not included
       - for x in range (starting, upto_this_number, increment/decrement)
         - decrement means if we write -1, then reverse order will be printed
     - while loop
@@ -78,7 +78,7 @@
       - words= mystr.split()
     -
       ip=input("enter your ip address: ")
-      ip=ip.split(".") # it is an list
+      ip=ip.split(".")        # it is an list
       print("list of octats are: ")
       for x in ip: ##iterating the list
           print(x)
@@ -88,11 +88,12 @@
         - eg:
           str="Innovaccer"
           shor=shortname[0:3]
-          print(shor) #output: Inn
+          print(shor)       #output: Inn
     - stringname[:x] --> if nothing before colon, default starts from 0
     - stringname[x:] --> if nothing after colon, default ends at the very end
     - stringname[::-1] --> to REVERSE the string
     - palindrome
+
       abc=input("enter string: ")
       rev=abc[::-1]
       if(rev==abc):
@@ -117,18 +118,18 @@
     - 
       course1=['sql server', 'azure', 'openstack', 'python','aws', 'java', 'linux']
       course2=['softskills', 'time management', 'managerial behaviour', 'sharp communication']
-      print(course1) #printing the list
+      print(course1)        #printing the list
       print(course2)
-      courses =course1 + course2 #combining both the lists
+      courses =course1 + course2      #combining both the lists
       print(courses)
     - .sort() --> sorting the list
 
       course1=['sql server', 'azure', 'openstack', 'python','aws', 'java', 'linux']
       course2=['softskills', 'time management', 'managerial behaviour', 'sharp communication']
       courses =course1 + course2
-      courses.sort() # sorting the list
+      courses.sort()        # sorting the list
       for x in courses:   
-          print(x) # printing courses individually
+          print(x)        # printing courses individually
     - .sort(reverse=True) --> will reverse in descending order
 
       course1=['sql server', 'azure', 'openstack', 'python','aws', 'java', 'linux']
@@ -137,6 +138,7 @@
       courses.sort(reverse=True)
       for x in courses:   
           print(x)
+
     - .append(<element_to_be_inserted") --> add the item at the end of the list
     - .extend() --> appends an iterable (tuple, list) to the end of list
       - it modifies the list, nothing new is created
@@ -150,7 +152,7 @@
       # print(course2)
       courses =course1 + course2
       courses.insert(3,'hello')
-      courses.remove('hello') # removes the first instances of hello from the list
+      courses.remove('hello')        # removes the first instances of hello from the list
       for x in courses:   
           print(x)
     - .insert(position, element) --> insert the element at particular position
@@ -160,7 +162,7 @@
       # print(course1)
       # print(course2)
       courses =course1 + course2
-      courses.insert(3,'hellloooo') #insert at index 3
+      courses.insert(3,'hellloooo')     #insert at index 3
       for x in courses:   
           print(x)
     - .len(<listname>) --> counts the number of elements
@@ -293,12 +295,12 @@
       print(newdepts) 
       print("Total New Depts = %d " %(len(newdepts))) 
 
-      cdept=pricorus & symphony # & stands for intersection 
+      cdept=pricorus & symphony      # & stands for intersection 
       print("Common Depts To Be Formed") 
       print(cdept) 
       print("Total Common Depts = %d "%(len(cdept))) 
 
-      alldepts=symphony | pricorus # | means Union 
+      alldepts=symphony | pricorus     # | means Union 
       print("Overall Depts Are") 
       print(alldepts) 
       print("Total Depts=%d" %len(alldepts)) 
@@ -350,7 +352,7 @@
 
       dict1.update(dict2)
 
-      print(sorted(dict1, reverse=True)) #prints the sorted dictionary basis on the key values
+      print(sorted(dict1, reverse=True))        #prints the sorted dictionary basis on the key values
 
 - installing pip and other packages
   - sudo apt update
@@ -359,14 +361,14 @@
   - sudo pip install pandas
   - sudo pip install openpyxl --> to run excel files through python
 
-- importing self created modules were discussed
+- importing self created "modules" were discussed
 
 - Lambda map
   - lambda/lambda expression --> known as anonymous functions
   - Lambdas are useful to write oneline code instead of making a function 
   - 
     import math
-    findsqroot= lambda x:math.sqrt(x) # this is the lambda syntax
+    findsqroot= lambda x:math.sqrt(x)       # this is the lambda syntax
 
     val=int(input("Enter value to find square root of: "))
     print(findsqroot(val))
@@ -374,7 +376,7 @@
   - useful for only oneline code
   - not generally advisable
   - using map() to calculate sqroot of whole list in one go
-    # use map when no condition is involved
+    #use map when no condition is involved
     
     import math
     findsqroot= lambda x:math.sqrt(x)
@@ -385,6 +387,7 @@
 
   - map(the function, iteratable container)
   - filter example --> separate list for sify and other emails using lambda function
+
     feedbackmail=['akanksha.gupta@sify.com',
         'Deepak.sharma@sify.com','karan.Bhatia@sify.com',
         'sarah.baswa@sify.com','raveesh.bhatt@sify.com',
@@ -400,3 +403,242 @@
 
     print(list(sifylist))
     print(list(nonsifylist))
+
+- Classes and objects
+  - classes--> general model
+  - objects--> instance of the class
+  - classes are called as user defined datatype or abstract data type
+  - 
+    class Book:        #class is a reserved word
+        def EnterBookDetail(self):    # every member function must contain a parameter, self is not a keyword
+            self.bookname= input("Enter book name: ").strip().title() # as soon as we use self, it becomes data memeber of the class, no access qualifier is needed
+            self.author= input("Enter author name: ").strip().title()
+            self.price= int(input("Enter Price: "))
+            self.publisher=input("Enter publisher name: ").strip().title()
+        
+        def showBookDetail(self):
+            print('Book name= ', self.bookname)
+            print('Author name= ', self.author)
+            print('Book Price= ', self.price)
+            print('Publisher= ', self.publisher)
+
+    book1=Book() #object creation
+    book1.EnterBookDetail() # interpreted as Book.EnterBookDetail(book1)
+    print()
+    book1.showBookDetail()
+
+    del(book1) # to delete the object we created, clear the memory
+  - constructor --> special function which autmoatically gets executed on creation of object
+
+      def __init__(self): #constructor
+        self.publisher='BPB'      # setting the publisher name by default as BPB
+    
+    --> __init__ is used to define a constructor
+  - parameterized constructor
+
+    class Book: #class is a reserved word
+        def __init__(self, pub='BPB'): #constructor
+            self.publisher=pub          #setting the publisher name by default as BPB
+
+        def EnterBookDetail(self):        #every member function must contain a parameter, self is not a keyword
+            self.bookname= input("Enter book name: ").strip().title()     # as soon as we use self, it becomes data memeber of the class, no access qualifier is needed
+            self.author= input("Enter author name: ").strip().title()
+            self.price= int(input("Enter Price: "))
+            #self.publisher=input("Enter publisher name: ").strip().title()
+        
+        def showBookDetail(self):
+            print('Book name= ', self.bookname)
+            print('Author name= ', self.author)
+            print('Book Price= ', self.price)
+            print('Publisher= ', self.publisher)
+
+    book1=Book() #object creation
+    book1.EnterBookDetail()       # interpreted as Book.EnterBookDetail(book1)
+    print()
+    book1.showBookDetail()
+    print()
+    book2=Book("Penguine")        #changing the publisher name
+    book2.EnterBookDetail()
+    book2.showBookDetail()
+
+    del(book1)       # to delete the object we created, clear the memory
+    del(book2)
+  
+  - destructor is not in python
+    - we have to use del()
+  
+  - inheritance
+
+      class furniture:
+          def __init__(x,cl="Brown"):
+              x.color=cl
+          
+          def inputdetail(x):
+              x.fname=input('Enter the furniture name ').strip().title()
+              x.price=int(input("enter the price "))
+              x.material=input("enter the material ").strip().title()
+
+          def displaydetail(x):
+              print("Name=", x.fname)
+              print("price=", x.price)
+              print("Material=", x.material)
+              print("Color=",x.color)
+
+      class Chair(furniture):          #derived class inheriting the parent class
+          def getdetail(x1):
+              x1.no_legs=int(input("Enter no of legs "))
+          
+          def showdetail(x1):
+              print("No of legs ",x1.no_legs)
+
+      class Almirah(furniture):        #another derived class
+          def enterdetail(x1):
+              x1.no_shelf=int(input("Enter no of shelves= "))
+          
+          def alldetails(x1):
+              print("No of shelves", x1.no_shelf)
+
+      myalmirah=Almirah("Green")       # creating object of almirah class
+      mychair=Chair()                  #creating object of chair class
+      mychair.inputdetail()            #function in parent class
+      mychair.getdetail()              #to get the no of legs
+      mychair.displaydetail()
+      mychair.showdetail()
+
+      print()
+
+      myalmirah.inputdetail()
+      myalmirah.enterdetail()
+      myalmirah.displaydetail()
+      myalmirah.alldetails()
+  
+- file handling and try except
+  - 
+    class Book:                          #class is a reserved word
+        def __init__(self, pub='BPB'):   #constructor
+            self.publisher=pub           # setting the publisher name by default as BPB
+
+        def EnterBookDetail(self):       # every member function must contain a parameter, self is not a keyword
+            self.bookname= input("Enter book name: ").strip().title()       # as soon as we use self, it becomes data memeber of the class, no access qualifier is needed
+            self.author= input("Enter author name: ").strip().title()
+            self.price= int(input("Enter Price: "))
+            #self.publisher=input("Enter publisher name: ").strip().title()
+        
+        def showBookDetail(self):
+            print('Book name= ', self.bookname)
+            print('Author name= ', self.author)
+            print('Book Price= ', self.price)
+            print('Publisher= ', self.publisher)
+        
+        def addfile(self):
+            try:
+                fv=open("first.txt","a")      #opening in append mode
+                data=self.bookname+","+self.author + "\n"        # file can only ewxcept strings, so string
+                fv.write(data)             #write the data in the file
+                print('record added')
+            except:
+                print("Exception occured")
+            finally:           #it will run no matter exception is there or not
+                fv.close()
+
+    book1=Book()               #object creation
+    book1.EnterBookDetail()    # interpreted as Book.EnterBookDetail(book1)
+    print()
+    book1.showBookDetail()
+    book1.addfile()
+    print()
+    book2=Book("Penguine")     #changing the publisher name
+    book2.EnterBookDetail()
+    book2.showBookDetail()
+    book2.addfile()
+    del(book1)       # to delete the object we created, clear the memory
+    del(book2)
+  
+  - try block can have more than one except blocks to handle various exceptions
+  - there are other exceptions like,
+    - PermissionError
+    - IOError
+    - FileNotFoundError
+
+  - file read
+
+    import os
+
+    try:
+        fv=open("first.txt","r")
+        mydata=fv.read()        #we can read the entire content of the file
+        print(mydata)
+        filesize=os.path.getsize("first.txt")
+        print(filesize)
+        print(len(mydata))     #size of the file too
+        lines=mydata.split("\n")
+        print("No of records= %d" %len(lines))
+        fv.close()
+
+    except FileNotFoundError:
+        print("File not found")
+
+    except PermissionError:
+        print("Read permission denied")
+
+    except IOError:
+        print("IOError occured")
+
+    except MemoryError:
+        print("Memory error")
+
+    except:
+        print("some error occured")
+  
+  - opening pdf
+
+    import PyPDF2
+    from PyPDF2 import PdfFileReader 
+    # Creating a pdf file object and Opening the File in rb Mode pdf is the File Handler 
+    pdf = open("pdf_notes", "rb") 
+    # Creating pdf reader object. 
+    pdf_reader = PyPDF2.PdfFileReader(pdf) 
+    # Checking total number of pages in a pdf file. 
+    print("Total number of Pages:", pdf_reader.numPages)
+
+  - pandas
+    - it is a package which internally uses some other packages like numpy, openpyxl
+    - 
+    - importing csv
+    
+      import pandas
+      mydata=pandas.read_csv('covid19.csv')
+      print(mydata) 
+      # index will come automatically by default
+
+    - mydata1=mydata.to_string(index=False) --> to remove those index (S. No.)
+    - stores data in dataframe
+    - if there is blank records between two record in csv, the mydata will show NaN i.e. null
+      - mydata1=mydata.dropna() --> removes NaN
+
+    - finding the max, min and avg death
+
+      import pandas
+      mydata=pandas.read_csv('covid19.csv')
+      maxdeath=mydata['Total_Deaths'].max()
+      mindeath=mydata['Total_Deaths'].min()
+      avgdeath=mydata['Total_Deaths'].mean()
+
+      print(mydata) 
+      print()
+      print(maxdeath)
+      print(mindeath)
+      print(avgdeath)
+
+  - validating ip address
+
+    import ipaddress
+    try: 
+        pp=ipaddress.ip_address(input("Enter Valid IP Address ")) 
+        print("IP Address Obtained : " + str(pp)) 
+    except ValueError: 
+        print("Invalid IP Address") 
+
+- os module lets us make dir etc using python3 with the same commands as done in terminal
+  - os.mkdir() --> making a new directory
+  - os.system(cp firstfilepath newfilepath) --> copies the file
