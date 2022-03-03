@@ -1,0 +1,157 @@
+- DevOps -> developing operations
+- TestOps --> testing operations
+  - selenium --> E2E test tools
+- DevSecOps --> development security using various complainces and various checks are happened
+
+
+- Pipelines
+  - continuous development (CD)
+  - continuous integration (CI)
+  - these are used to deploy and integrade codes and stuff on the go, so that others don't have to wait to use it
+  - tools exist such as jenkins, docker, kubernatives
+
+- Docker is software for a concept called Container
+
+- Containerization solution providers
+  - AWS container --> docker
+  - Azure container --> docker
+  - google --> docker
+  - Kubernates --> docker
+
+- virtual machine
+  - host -> hypervisor -> guestOS -> Bins/libs -> apps
+  - host is the OS on which virtual machine is enabled
+  - hypervisor is what facilitates the use of virtual machine. It is an virtual engine basically. Mainly present in windows
+    - alternatives are, redHat virtualisation, virtualbox etc.
+  - guestOS, the OS running on the VM
+  - Bins/libs are the files
+  - apps are the application which are installed on the guestOS
+
+  - problem with VM --> just for one application, it carries whole OS along with its Kernel, drivers
+    hardwares, library etc which might even not be required by our app.
+    These layer already exist with out HostOS so these are kind of unnecessary
+    - for eg, suppose host already has firewall system, but guestOS will also have its firewall, so it would be 
+      an unnecessary load, but it is a necessary dependency of VM.
+
+- Containerization
+  - using docker engine we club/containerize the whole software bundle and librarier required and use it on docker engine
+  - it is executed on host operating system 
+  - so only necessary things comeup in docker
+  - container are virtual environment, but different from virtual machine
+  - like hypervisor here is docker engine (it is not alternate!)
+
+- Docker Components
+  - docker engine
+  - docker desktop
+  - docker hub
+  - docker compose
+
+- Docker Engine
+  - in linux it is natively supported, can be installed as a package
+  - it is not in macos or windows
+  - it uses linux internally
+  - Docker Desktop --> available for windows and mac
+    - has to be run as a daemon or service so that it can run docker engine and utilities
+  - to install docker engine on linux
+    - https://docs.docker.com/engine/install/ubuntu/
+  
+- Docker Image
+  - image is a read only bundle of a software through which we can actually create the software
+  - docker hub --> all the images are listed here
+  - sudo docker run node [or] sudo docker pull node --> download the node image
+    - pull downloads the image and run downloads the image and creates the container
+    - docker run node --dns 8.8.8.8 --> if above command doesn't run
+    - in front of digest there will a long alphanumeric key
+      - that is the SHA key
+    - sudo docker images
+      - if we see for node, it is much larger when downloaded from website
+        - it is because it is already set up according to the hostOS
+    - image being a readonly entity allows us to create N number of containers keeping the image same
+    - sudo docker run node --> mainly creates a container
+      - if run again, then another container will be created
+    - sudo docker ps --> shows the running containers
+      - sudo docker ps -a -->shows all the container, even if they exited
+    - by default container doesn't run any program, so once created it gets exited
+    - total size of containers of one image is equal to the size of the image, by default
+    - after creation of container, we can't delete the image. to delete the image we have to remove the container not just exit it
+    - sudo docker rm <container_id or container_name> --> removes the container
+    - sudo docker run -it <image_name> --> runs the image and allows us to interact with the container
+    - node is not in the host that why it shows command not found, but
+      on running through docker, it will work. so node is in docker engine
+    
+    - Building Image
+      - go to the folder where DockerFile is
+      - docker build . --> builds the iamge with content of DockerFile
+      - we can include more than one file in DockerFile using
+        - FROM node
+          FROM mongo
+      - it will create an image containing the properties of both
+        - so if we make a container out of it, it will have properties of both image
+      - docker build -t <name :vertsion> . --> image with name
+
+- nodejs app
+  - go to the folder of DockerFile
+  - sudo install npm
+  - npm init --yes --> initializes the npm
+  - npm install express --> installs express
+  - node_modules folder created after installing express is heavy folder
+  - when we installed express, it was listes as dependency in the package.json file 
+  - so we can delete that folder if we want to send the nodejs app, we can just send the package.json file and then run
+    - npm install --> installs the dependencies
+  - 
+    # index.mjs file code below
+    
+    import express from "express";
+
+    const app = express()
+
+    app.get("/", (req,res)=>{
+    res.send("<h1>WELCOME TO THE NODE APP</h1>")
+    })
+
+    app.get("/about", (req,res)=>{
+        res.send("<h1>WELCOME TO THE about</h1>")
+    })
+
+    app.listen(3000); 
+  
+  - save the file as .mjs --> because we imported a module so need to be saved as modular file
+  - node index.mjs --> to run the file
+
+  - see the docker file
+    - here we are making custom image and then will make a container to run the index file whenever we will make the container
+    - 
+      # content of the dockerfile
+
+      FROM node
+
+      WORKDIR /myapp # this is the directory we made for the node app
+
+      COPY ./package.json . # copy <source> <destination>
+
+      RUN npm install # to install the dependencies from package.json
+
+      COPY index.mjs . # the dot at last shows the destination, here /myapp
+
+      EXPOSE 3000 # the port we want to open for communication
+
+      CMD ["node","index.mjs"] # the command to run "node index.mjs"
+
+  - steps
+    - sudo docker build .
+    - sudo docker run -p3000:3000 <image_id of custom image>
+    - sudo docker ps -a --> check the container
+    - now the index file will be running (because we mentioned it in dockerfile)
+    - ctrl+c, or stopping the container will stop the index.mjs file
+  - sudo docker stop <container_id> --> stops the container
+  - sudo docker start <container_id> --> starts the container
+    - to start the container in interactive mode as we did in image with -it, we use -i here
+    - to name a container 
+      - sudo docker run -it --name <container_name> <image_id>
+  - sudo docker rm <container_id> --> removes the container
+  - we can also make another container using different port as -p4000:3000, so this will run at 4000 and the previous one was running at 3000
+  - docker rmi <image_id> --> to remove image
+  - docker run --name <container_name> -p <ports> -d <image_name> --> here it will not hold up the terminal, -d stands for detached mode
+    - attached mode is used to view the logs
+  - docker start --> t will be in detached mode from the start, use -a to use it in attached mode
+  - docker logs <container_name> --> gives the log generated by that container
