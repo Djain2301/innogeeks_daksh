@@ -278,7 +278,7 @@
 
   - app.listen(process.env.<variable_name>) --> to use the nv varibale of OS
     - app.listen(process.env.MYPORT) --> to give the port no dynamically
-    - sudo docker run --name mynode_new -p 8000:1000 -e MYPORT=1000 mynode:5.0
+    - <important> sudo docker run --name mynode_new -p 8000:1000 -e MYPORT=1000 mynode:5.0
       - the above command
       - -e --> to devlare env vraiable MYPORT
       - we can also add -rm to remove the container automaticallt once it is stopped
@@ -316,4 +316,126 @@
 
     - we can also provide myport value in dockerfile as 
       - ENV MYPORT=<port>
+    - --rm flag --> removes the container as soon as container stops
     
+- Docker Volume
+  - application data like index.js --> typical source code data
+    - it is typically stored in the image
+  - temporary data like cache files, user uplodaded images, assets etc.
+  - permanent storage like databse files OR called as persistent storage
+  - all the above data can be stored in a container, but if the container gets deleted, so does the data
+  
+  - types of volume
+    - anonymous volume
+      - declare in dockerfile using VOLUME
+      - this type of volume removes on removal of container
+      - to use it in a flag with -v, we have to give the destination path only
+    - named volume
+      - -v assets:/app/assests --> creates a volume, use it at the time of creating the container (docker run command)
+        - here we gave the name assets before :, so this is a named volume
+        - the assets folder will be created on the host machine
+      - this type of volume doesn't gets deleted on deletion of container
+      - 
+    - bind mounts
+      - a application is that it allows to also modify the source code, no need to build the image again
+      - -v ${pwd}:/app --> giving the path as well as the destination
+      - one way traffic, changes made to host will reflect in container too
+      - changes made in container not reflects in the host machine
+      - so we can say that builidng bind mount volumes helps us to not rebuild images again and again
+
+    
+
+  - CREATING A FILE MANAGEMENT APP IN NODE JS
+    - docker run --name fm 
+      -v assests:/app/assets
+      -v $(pwd):/app    # $(pwd) --> gives the path of the current working directory
+      -v /app/node_modules/
+      -d -p 3000:3000 filemanager:version
+    
+    - we need to made to anonymous volume because 
+      - we made named volume to get the assets folder, so that we can access it by our browser also, i.e in container too
+      - then we linked the whole folder to the /app, i.e. to the container
+      - the problem is that we did npm install in Dockerfile, it got installed too
+      - then when we did the bind mount and what bind mount does is it override the whole folder to app folder
+        - it doesnt just merge, but the whole
+        - and as we deleted the whole node_modules from our host machine as we do npm install on docker so we delete to avoid redundancy and space conflict
+        - so the node_module is not in the /app now, because of it we will get various errors
+      - we added anonymous image to get the node_module out of the container
+
+      - now what is the preference in which this happens is, if other volume has larger path lenght than the bind mount
+        then the volumes are exempted and gets merge with bind mount upon execution
+          i.e. any folder which is either named or anon. volume will be exempted
+      - when we run the commmand with bind mount, there will be a node module made
+      - when we delete the container the node module made at host machine will also get deleted, because it is an anonymous volume
+
+    - index.js
+      
+      const express= require("express")
+      const exists = require ("fs")
+      const bodyParser = require ("body-parser")
+      const path = require("path")
+      const fs = require ("fs").promises
+
+      const app = express()
+
+      app.use("/assets", express.static("assets"))
+
+      app.get("/", (req,res) =>{
+          res.send("<h1>WELCOME TO THE NODE APP</h1>")
+      });
+
+      app.get("/create", async (req,res) => {
+          let filename = req.query.filename;
+          let content = req.query.content;
+          const fullpath = path.join(
+              __dirname,
+              "assets",
+              filename.toLocaleLowerCase() + ".txt"
+          );
+          console.log(`file is ${fullpath} and content ${content}`)
+          await fs.writeFile(fullpath, content)
+          res.send("<H1>FILE CREATED SUCCESSFULLY</H1>")
+      })
+
+      app.listen(3000)
+    
+    - Dockerfile
+      FROM node
+
+      WORKDIR /app
+
+      COPY package.json .
+
+      RUN npm install
+
+      COPY . .
+
+      EXPOSE 3000
+
+      CMD ["npm", "start"]
+
+    - package.json
+      
+      {
+        "name": "NodeFileManger",
+        "version": "1.0.0",
+        "main": "index.js",
+        "scripts": {
+          "test": "echo \"Error: no test specified\" && exit 1",
+          "start": "nodemon index.js"
+        },
+        "keywords": [],
+        "author": "",
+        "license": "ISC",
+        "description": "",
+        "dependencies": {
+          "body-parser": "^1.19.2",
+          "express": "^4.17.3",
+          "fs": "^0.0.1-security",
+          "nodemon": "^2.0.15",
+          "path": "^0.12.7"
+        }
+      }
+  
+    - as we delete the node_modules, and package-lock , we can list them in 
+      .dockerignore and they will be ignored
