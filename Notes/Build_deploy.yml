@@ -439,3 +439,50 @@
   
     - as we delete the node_modules, and package-lock , we can list them in 
       .dockerignore and they will be ignored
+
+- mongo and Node app
+  - create a NETWORK using 
+    - sudo docker network create mynetwork
+  - create mongodb container
+    - sudo docker run -p 27017:27017 --name mongo --network mynetwork -d mongo
+  - build the image of node app
+    - index.js
+
+      const express = require("express")
+      const mongoose = require("mongoose")
+      const app = express();
+
+      app.get("/" , (req,res) => {
+          res.send("<h1>Hi there welkcome to node app</h1>")
+      })
+
+      mongoose.connect(
+          "mongodb://mongo:27017/innovaccer",
+          { useNewUrlParser :true},
+          (err) =>{
+              if(err){
+                  console.log("===connection NOT established");
+                  console.log(err);
+              } else{
+                  console.log("====connection established");
+                  app.listen(3000);
+              }
+          }
+      )
+
+    - create a container of the above Node app
+      - sudo docker -p 3000:3000 --name nodemongo --network mynetwork nodemongo:1.0
+    
+    - things to notice
+      - use of docker network --> as the mongo and node are not in same continer so there was no way to make them run together, so we made some changes in index.js file as     "mongodb://mongo:27017/innovaccer"
+      - here we wrote mongo:27017, instead on mongo we could have written the IP of the mongo  container that we made on the network, but the ip can change due to somethings so we use the name of the container
+      - on the network node and mongo are linked together, so they can be on different machines yet they will work fine because of the IP
+      - here as of now, the network, mongo and nodeapp should be on same machine
+      - follow the above steps as it is, no change should be there in order of execution
+
+    - docker network create <network_name> --> creates network with name <network_name>
+    - docker network ls --> lists all the network
+
+
+- Docker Compose :(will discuss later as of 8th march)
+  https://docs.docker.com/compose/compose-file/compose-file-v3/ 
