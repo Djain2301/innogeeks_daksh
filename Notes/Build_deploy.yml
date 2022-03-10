@@ -491,7 +491,7 @@
   - sudo docker run --name myjenkins -d -v jenkins_home:/var/jenkins_home -p 8080:8080 -p 50000:50000 jenkins/jenkins:lts-jdk11
   - sudo docker logs myjenkins --> gives the password
 
-- jenkin with nodejs
+- JENKINS with nodejs
   - create index js
   - creat docker
   - link to a new github
@@ -534,5 +534,7 @@
     - we will run ->
         - sudo docker run --name myjenkins -d -v jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock -p 8080:8080 -p 50000:50000 jenkins_custom:1.0
           - here the var/run/ ...volume is connecting the host docker to the docker in container
+  - after adding the docker into the container as well, there will be some problems with the groups as var/run/ docker.sock, so to 
+    handle that we will run --> chgrp docker docker.sock and then chgrp 999 docker.sock at var/run from outside the container
   - the above steps will be done after stopping the earlier jenkins container
   - now as we run localhost:8080, we will still get the same dashboard, because of the named volume jenkins_home
