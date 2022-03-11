@@ -536,5 +536,6 @@
           - here the var/run/ ...volume is connecting the host docker to the docker in container
   - after adding the docker into the container as well, there will be some problems with the groups as var/run/ docker.sock, so to 
     handle that we will run --> chgrp docker docker.sock and then chgrp 999 docker.sock at var/run from outside the container
+  - also change the persmission --> chmod 666 docker.sock (or do this only instead of changing the group)
   - the above steps will be done after stopping the earlier jenkins container
   - now as we run localhost:8080, we will still get the same dashboard, because of the named volume jenkins_home
