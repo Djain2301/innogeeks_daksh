@@ -38,6 +38,9 @@
       - we will get connected to the server
     - we are inside the server and configure it as we wish
 
+    - at the network stage, we scroll down and see the "user data" column, we can actually write a script there which will be initiated
+      once the instance is connected to the ssh, like we can give commands to install some softwares so that we dont have to do that manually
+
   - NOTE : THAT WE RECIEVE ONLY 720 HOURS FREE PER MONTH, SO "STOP" THE INSTANCE WHEN NOT IN USE, JUST SHUTTING DOWN THE 
     MACHINE WONT HELP.
 
@@ -71,6 +74,11 @@
     - now we see/note the AZ of the volume
     - as we create instance there, keep in mind to choose the subnet correctly
     - attach the volume and you will be able to get all the data in the instance
+
+  - Elastic IP
+    - EC2 service
+    - create a public IP for yourself, which will be available for us always
+    - it is paid
 
 - S3
   - Scalable Storage Service
