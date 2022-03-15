@@ -1,0 +1,197 @@
+- HTML
+  - header and footer tag
+  - rowspan colspan
+  - audio tag controls type
+  - video tag controls
+  - anchor tag
+  - img tag
+  - BETTER take a look at html help websites like w3schools, MDN (Mozilla documentation) and practice
+  - assignment:- make registration form
+
+- JavaScript
+  - console.log --> prints the output to the console
+  - diff between var and let (scope) --> var has no scope, let has local scope.
+  - loops --> same as in java/cpp
+  - escape characters (\") --> to print a character which is inside the string
+    - 'Ram's laptop' --> here the ' before s makes the string end there but we want to print Ram's Laptop
+    - so we do 'Ram\'s Laptop' --> it will print Ram's Laptop
+  - template literals --> writing string inside backticks(`)
+    - we can use it like ->
+      - var a = 10;
+        console.log(`the value of a is ${a}`) --> prints, the value of a is 10
+      - ${..} --> is called interpolation
+      - we can also perform various fucntion inside ${}
+      - we can also print `Ram's Laptop`, no need of escape character
+  - arrays in js
+    - var arr = ["daksh",1 , true] --> can contain elements with diff data types
+    - .pop() --> rmeoves element from the last
+    - 2d arrays
+    - indexing from 0
+    - .shift() -> removes from start
+    - .unshift() -> adding at the start (not replacing)
+    - .push() --> adds to the last index
+  - tight language, diff datatype for same variable
+    - var myage = "18" --> here the myage type is string
+      myage = 18 --> here the type of the above same myage changes to number by itself
+  - functions
+    - lambda function
+      -
+        var myfunction = function(a){
+          console.log(`value of a is ${a});
+        }
+        myfunction(44)
+    - arrow function
+      -
+        let myfunc = (val) => "Value is :" + val
+        console.log(myfunc(10))
+
+        --> gives output:- Value is 10
+
+  - differnece between == and ===
+    - == checks the value only
+    - === checks the datatype too
+  - !== --> not equal value and not equal type
+  - != --> not equal value
+  - ternary operator
+  - Math.random() --> gives random number
+  - this keyword
+  - classes
+    - class Student{
+          fullname= "Daksh Bindal";
+
+          printname(){
+              this.fullname
+          }
+      }
+  - objects
+    - 
+      const user = {
+          fullname: "Daksh Bindal",
+          myage: 20,
+          teach: function(){
+              console.log(this)
+          }
+      }
+
+      user.teach()
+
+      --> "this" in teach function returns the parent of the current function, i.e. the user object which is the parent of teach function
+    - const anotherinstance= user.teach;
+      --> in above line teach function is detached to anotherinstance
+    - anotherinstance(); --> here the parent is not user, so it will print window object, which is actually the root object (beacuse there is "this" statment in the functino defination)
+  - array of objects
+  - .filter()
+    const task =[
+        {
+            id: 1,
+            title: "task1",
+            status: "in progress"
+        },
+        {
+            id: 2,
+            title: "task1",
+            status: "completed"
+        },
+        {
+            id: 3,
+            title: "task1",
+            status: "completed"
+        },
+        {
+            id: 4,
+            title: "task1",
+            status: "in progress"
+        },
+    ]
+
+    const completedTask = task.filter((currentTask) => currentTask.status==="completed")
+
+    console.log(completedTask)
+  - 
+    const newuser = {
+        fullname :"Daksh Bindal",
+        age: 20,
+        discuss(){
+            setTimeout(function(){
+                console.log("This keyword",this);
+            } ,3000)
+
+        }
+    }
+
+    newuser.discuss()
+
+    --> there will be delay and then it will output window, not newuser. beacuase parent of settimeout is window not newuser
+        this is because in case of traditional functions like function(), the do unbinding to the parent of current function
+
+        const newuser2 = {
+            fullname :"Daksh Bindal",
+            age: 20,
+            discuss(){
+                setTimeout(() => {
+                    console.log("This keyword in arrow function",this);
+                } ,3000)
+
+            }
+        }
+
+        newuser2.discuss()
+    --> if we used arrow function instead of arrow fucntion, there is no unbinding process and gives the output of 'this' as newuser, not window
+    BECAUSE of no unbinding, arrow funcitons are super fast
+  - .map() function --> edits the value
+  - destructuring
+
+    const address= {
+        street: "streetname",
+        city: "cityname",
+        state: "statename",
+        country: "countryname"
+    }
+
+    const {street, city, state, country} = address; #extracts the value from the address
+    # also creates local variable
+    console.log(`${street} ${city} ${state} ${country}`)
+  
+  - spread operator
+    const arr1 =[1,2,3]
+    const arr2 =[5,6,7]
+
+    const finalarray = arr1.concat(arr2) # helps to concate two arrays into one
+    console.log(finalarray) 
+
+    const finalarray2 = [...arr1, ...arr2]; # spread operator
+
+    console.log(finalarray2)
+
+    --> the difference between concat and spread is that in spread we can inject values in between like
+    [..arr1, 4, ..arr2] --> 1,2,3,4,5,6,7
+
+    --> they are not limited to array only, they can be applied to objects also
+
+    const firstname = {firstname: "daksh"}
+    const lastname = {lastname: "bindal"}
+
+    const fullname = { ...firstname, middlename: "sanjeev", ...lastname}
+    # middlename is injected, but it should be of the same format if not same type
+    console.log(fullname)
+
+    --> using spread operator to omit some values
+      const arr10 = [1,2,3,4,5,6]
+
+      const[ , , ...arr12] = arr10;
+      console.log(arr12)
+
+      here in arr12 will skip the first 2 values (because 2 commas are there) and rest will be copied
+
+    --> another example
+      const obj = {fullname: "daksh", age: 10, number: 10}
+
+      const { age, ...obj1} = obj
+      console.log(obj1) 
+
+      -- here the obj1 contains fullname and number, age is not in obj1
+        so we can use spread operator to omit out some values from our selection too
+
+    
+
+  
