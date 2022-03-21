@@ -448,7 +448,7 @@
   - working on mongodb
     - open terminal or open through right clicking on server menu and click open shell
     - use <db_name> --> switch to database, if doenst exists create the database
-    - db.Employee.insertOne --> allows us to insert "one" record into the newly created table(employee)
+    - db.<db_name>.insertOne --> db.Employee.insertOne --> allows us to insert "one" record into the newly created table(employee)
       db.Employeee.insertOne(
         {
           firstname: "Nilesh",
@@ -490,30 +490,32 @@
           }
         ]
       ) 
-      
-    - db.RecordsDB.find() 
+    
+    - we can insert more columns in the table than we have inserted earlier, i.e. we can introduced new column(s) for a particular record(s) also, so the schema is flexible
+    - db.RecordsDB.find()  --> list all the records
+    - db.<dbname>.find({"firstname":"John"}) --> to fetch user with name John, equivalent to Select * from dbname where firstname="John"
+    - db.<dbname>.find({firstname:1, lastname:1}) --> equivalent to select firstname, lastname from dbname;
+    - db.<dbname>.find({column1:0, column:2}) --> lists all the columns except column1 and column2 (0 means false, 1 means true)
+    - db.RecordsDB.findOne({"age": "8 years"}) --> lists the first row it encounters fulfilling the given constraint
     - db.RecordsDB.find( { status: "A" }, { item: 1, status: 1 } ) --> Specific fields 
     - db.inventory.find( { status: "A" }, { item: 1, status: 1, _id: 0 } ) --> ignore _id 
     - db.inventory.find( { status: "A" }, { status: 0, instock: 0 } ) --> return all but these fields 
-    - db.RecordsDB.find({"species": "Cat"}) 
-    - db.RecordsDB.findOne({"age": "8 years"}) 
-    - db.RecordsDB.updateOne({name: "Marsh"}, {$set:{ownerAddress: "451 W. Coffee St. A204"}}) 
+    - db.<dbname>.find({}).sort({age: 1}) --> sort by ascending order 
+    - db.<dbname>.find({}).sort({age: -1}) --> sort by descending order
+    - db.<dbname>.find( { $and:[ {firstname:"xyz"}, {lastname: "abc"}] }) --> listing records matching both condition
+    - db.<dbname>.find( { $or:[ {firstname:"xyz"}, {lastname: "abc"}] }) --> listing records matching either condition
+    - db.<dbname>.find( {age: {$in: [40,42]}}) --> listing with either 40 or 42
+    - db.RecordsDB.updateOne({name: "Marsh"}, { $set: {ownerAddress: "451 W. Coffee St. A204"}}) 
     - db.RecordsDB.updateMany({species: "Dog"}, {$set: {age: "5"}}) 
     - db.RecordsDB.replaceOne({name: "Kevin"}, {name: "Maki"}) 
     - db.RecordsDB.deleteOne({name: "Maki"}) 
     - db.RecordsDB.deleteMany({species: "Dog"}) 
     - db.RecordsDB.count() 
-    - db.RecordsDB.find().limit(10) 
-    - db.RecordsDB.find() 
-    - db.RecordsDB.find( { status: "A" }, { item: 1, status: 1 } ) --> Specific fields 
-    - db.inventory.find( { status: "A" }, { item: 1, status: 1, _id: 0 } ) --> ignore _id 
-    - db.inventory.find( { status: "A" }, { status: 0, instock: 0 } ) --> return all but these fields 
-    - db.RecordsDB.find({"species": "Cat"}) 
-    - db.RecordsDB.findOne({"age": "8 years"}) 
-    - db.RecordsDB.updateOne({name: "Marsh"}, {$set:{ownerAddress: "451 W. Coffee St. A204"}}) 
-    - db.RecordsDB.updateMany({species:"Dog"}, {$set: {age: "5"}}) 
-    - db.RecordsDB.replaceOne({name: "Kevin"}, {name: "Maki"}) 
-    - db.RecordsDB.deleteOne({name: "Maki"}) 
-    - db.RecordsDB.deleteMany({species: "Dog"}) 
-    - db.RecordsDB.count() 
-    - db.RecordsDB.find().limit(10) 
+    - db.RecordsDB.find().limit(10) --> showing first 10 only
+
+    - if we run mongo through aws server, then want to connect it with robo3t, either do ssh tunnel or go to etc/mongod.conf and scroll down 
+      to IP and at the place of 127.0.0.1, write 0.0.0.0 and save
+    - restart the mongo service and connect with robo3t. at the time of creation in robo3t type public ip at the place of localhost
+
+- ELASTIC SEARCH
+  
