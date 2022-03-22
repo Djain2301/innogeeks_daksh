@@ -30,6 +30,7 @@
     - .shift() -> removes from start
     - .unshift() -> adding at the start (not replacing)
     - .push() --> adds to the last index
+    - .length() --> check the length of the array
   - tight language, diff datatype for same variable
     - var myage = "18" --> here the myage type is string
       myage = 18 --> here the type of the above same myage changes to number by itself
@@ -138,7 +139,7 @@
         newuser2.discuss()
     --> if we used arrow function instead of arrow fucntion, there is no unbinding process and gives the output of 'this' as newuser, not window
     BECAUSE of no unbinding, arrow funcitons are super fast
-  - .map() function --> edits the value
+  - .map() function --> allows us to edit the value
   - destructuring
 
     const address= {
@@ -151,7 +152,10 @@
     const {street, city, state, country} = address; #extracts the value from the address
     # also creates local variable
     console.log(`${street} ${city} ${state} ${country}`)
-  
+    const { x: a, y: b, z: c } = object_name --> if we want to change the name, a will be alias for key x in the object and so on
+    --> we can use destructuring for parameters also, say we pass object with key values like a, b...
+        now we in function arguments we write func({a}), by this only a will be accessed in the function
+
   - spread operator
     const arr1 =[1,2,3]
     const arr2 =[5,6,7]
@@ -192,6 +196,448 @@
       -- here the obj1 contains fullname and number, age is not in obj1
         so we can use spread operator to omit out some values from our selection too
 
-    
-
+  - typeof null --> object, so the typeof any null is 'object'
+  - strings are immutable, i.e. a single letter from them cant be changed
   
+  - objects (extended)
+    - var person ={
+          name: 'daksh',
+          age: 20,
+          lastname: 'bindal'
+      }
+
+      console.log(person['name'])
+
+      --> we can access the keys through
+        --> person.name OR person['name']
+          - the diff is that when we have numbers or multiple words (spaces in b/w) as keys then we cant use the (.) format,
+            we have to use the bracket format in that case
+      
+    - we can add any key by just, person.address = 'xyz' --> this adds the key address in the object
+    - delete person.address --> to delete that key
+
+    - hasOwnProperty --> checks whether the object has certain key or not
+      var myobj = {
+          gift: 'a',
+          paper: 'news',
+          stone: 'rock'
+      }
+
+      function checkObj(checkprop){
+          return myobj.hasOwnProperty(checkprop)
+      }
+
+      console.log(checkObj("rock"))
+
+    - array of objects
+      var obj = [
+          {
+              name: 'daksh',
+              lastname: 'bindal',
+              learns: ["aws", "js"]
+          },
+          {
+              name: 'daksh',
+              lastname: 'bindal',
+              learns: ["aws", "js"]
+          }
+      ]
+
+      console.log(obj)
+
+    - nested object --> objects withing object, any key is a object, i.e. hold multiple values inside
+    - Object.freeze(<object_name>) --> to make object immutable
+      function testObj() {
+        const mathobject = {
+                pi: '3.14'
+            }
+            Object.freeze(mathobject)
+            // mathobject.pi = '10'
+            // var value = 3 * mathobject.pi
+            try {
+                mathobject.pi="10"
+            } catch (err) {
+                console.log(err)
+            }
+            return mathobject.pi
+      }
+
+      console.log(testObj())
+
+  - ternary operators (? :) (if else)
+
+  - higher order functions
+    - .filter
+
+      const realnum = [4, 5, 6, -9, 0.6, 10, -2, 10.2];
+
+      const list = (realnum) => {
+          const numbers = realnum.filter((num) => Number.isInteger(num) && num > 0)
+          return numbers;
+      }
+
+      console.log(list(realnum))
+    
+      --> in the filter function, it checks if num (each element from the array 'realnum') is integer and is >0, if yes, it will return that number
+      --> as list is taking realnum, so it will return an array
+    - .reduce --> reduces to a single element
+      const sum = (x, y, z) => {
+          const args = [x, y, z];
+          return args.reduce((a, b) => a + b, 0)
+      }
+
+      console.log(sum(1, 2, 3));
+      --> the output of the above code is 6
+      --> (a,b), here the function does a+b and the initial value of a is '0' (from (a+b, 0))
+          b is each element from the array 'args'
+          by default a takes '0' as intial value
+      --> the above function is essentially doing sum of whole array
+    
+    - find --> same as filter the diff is that is stops as soon as it gets the first value
+      var arr= [1,2,3,4]
+      arr.find((n)=>n-=2)
+
+    - rest --> takes n number of arguments and converts it into an array
+      const sum = (...args) => {
+          return args.reduce((a, b) => a + b)
+      }
+
+      console.log(sum(1, 2, 3, 4, 5, 6, 7));
+
+      --> here we dont need to update the no of parameter if we change the no of arguments while calling the function
+        ...args --> convert the arguments to an array by itself (... is the rest operator)
+    
+    - spread --> discussed above
+
+  - DOM --> document object model
+    - allows to access all the object with their styles and content on our webpage
+
+    - getElementByID --> getting the element with id "para" (in the html <p> tag had id as para)
+      const myElement= document.getElementById("para")
+      console.log(myElement) 
+
+      - .innerHTML --> adds/changes HTML content inside that element
+          const myElement= document.getElementById("para").innerHTML="Hello world"
+    
+      - adding CSS style to the <p> tag
+          document.getElementById("para").innerHTML = "Hello world"
+          const myElement = document.getElementById("para")
+          myElement.style.color = "red"
+          console.log(myElement)
+      
+    - getElementsByClassName 
+      const collection = document.getElementsByClassName('newdiv')
+      collection[0].innerHTML = "Hellooooo"
+      console.log(collection)
+
+      --> in the html we made 2 div tags with class as newdiv
+
+      - style in js
+
+        const collection = document.getElementsByClassName('test demo');
+        collection[0].style.background = "red"
+
+        HTML file is:
+        <!DOCTYPE html>
+        <html lang="en">
+
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Document</title>
+            <style>
+                div{
+                    border: 1px solid black;
+                    padding: 8px;
+                    margin-top: 2px;
+                }
+            </style>
+        </head>
+
+        <body>
+            <h1>advance Javascript demo</h1>
+            <!-- <p id="para"></p> -->
+            <!-- <div class="newdiv"></div>
+            <div class="newdiv invalid"></div> -->
+            <div class="test">
+                <p>This is for 1st div</p>
+            </div>
+            <div class="test demo">
+                <p>This is for 2nd div</p>
+            </div>
+            <div class="test demo">
+                <p>This is for 3rd div</p>
+            </div>
+            <script src="./script.js">
+            </script>
+        </body>
+
+        </html>
+
+        --> there is some style already in the HTML, but we are adding more to it
+
+    - getElementsByName
+      let collection = document.getElementsByName('fname')
+      document.getElementById('tagname').innerHTML = collection[0].tagName
+
+      html:
+      <body>
+          <h1>advance Javascript demo</h1>
+          <!-- <p id="para"></p> -->
+          <!-- <div class="newdiv"></div>
+          <div class="newdiv invalid"></div> -->
+          <!-- <div class="test">
+              <p>This is for 1st div</p>
+          </div>
+          <div class="test demo">
+              <p>This is for 2nd div</p>
+          </div>
+          <div class="test demo">
+              <p>This is for 3rd div</p>
+          </div> -->
+          <p> First name: <input type="text" name="fname" value="daksh"></p>
+          <p>First name: <input type="text" name="fname" value="bindal"></p>
+          <p id="tagname"></p>
+          <script src="./script.js">
+          </script>
+      </body>
+
+      - if we want to check the checkboxes
+        let num = document.getElementsByName('animal')
+        for (let i = 0; i < num.length; i++) {
+            if(num[i].type=='checkbox') num[i].checked=true
+        }
+
+        html:
+        cats: <input type="checkbox" name="animal" value="cats" />
+        dogs: <input type="checkbox" name="animal" value="dogs" />
+        <p id="tagname"></p>
+        <script src="./script.js">
+        </script>
+    
+    - getElementsByTagName
+      const collection = document.getElementsByTagName('li')
+      console.log(collection)
+      document.getElementById('test').innerHTML = collection[1].innerHTML
+
+      html-->
+      <ul>
+          <li>cat</li>
+          <li>dog</li>
+          <li>frog</li>
+
+      </ul>
+      <p id="test"></p>
+
+      --> here we will be getting the list and line with innerhtml fills the paragraph with the content of collection[1] html
+          i.e. dog
+      
+      - listing all the tags
+        const collection = document.getElementsByTagName('*')
+        let test=''
+        for (let i = 0; i < collection.length; i++) {
+            test+=collection[i].tagName +"<br>"
+        }
+        document.getElementById('test').innerHTML=test
+
+    - createElement
+      const para = document.createElement('p'); # addign p tag
+      para.innerText = "this is para" #adding text to the para tag
+      document.body.appendChild(para) # .body is the <body> and .appenchild is used to append a tag
+
+    - createAttribute
+      function newfunction(){
+        // const attr = document.createAttribute('class')
+        // attr.value="paraclass" #add paraclass to css in the html too 
+        # use this in setAttribute Node
+        #add this to p
+        document.getElementsByTagName('p')[0].setAttribute("class","paraclass") #first argument is the attribute name and the second is the value of that attribute
+      }
+
+      html: 
+      <!DOCTYPE html>
+      <html lang="en">
+
+      <head>
+          <meta charset="UTF-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Document</title>
+          <style>
+              div {
+                  border: 1px solid black;
+                  padding: 8px;
+                  margin: 2px 2px;
+              }
+              .paraclass{
+                  color: green;
+              }
+          </style>
+      </head>
+
+      <body>
+          <h1>advance Javascript demo</h1>
+          <!-- <p id="para"></p> -->
+          <!-- <div class="newdiv"></div>
+          <div class="newdiv invalid"></div> -->
+          <!-- <div class="test">
+              <p>This is for 1st div</p>
+          </div>
+          <div class="test demo">
+              <p>This is for 2nd div</p>
+          </div>
+          <div class="test demo">
+              <p>This is for 3rd div</p>
+          </div> -->
+          <!-- <p> First name: <input type="text" name="fname" value="daksh"></p>
+          <p>First name: <input type="text" name="fname" value="bindal"></p>
+          <p id="tagname"></p> -->
+
+          <!-- cats: <input type="checkbox" name="animal" value="cats" />
+          dogs: <input type="checkbox" name="animal" value="dogs" />
+          <p id="tagname"></p> -->
+
+          <!-- <ul>
+              <li>cat</li>
+              <li>dog</li>
+              <li>frog</li>
+
+          </ul>
+          <p id="test"></p> -->
+
+          <!-- <p>1st para</p>
+          <p>2st para</p>
+          <p>3st para</p> -->
+
+          <!-- <div id="mydiv"> 
+              <h3>this is div</h3>
+          </div> -->
+
+          <p>This is a para to add attributes</p> #here the attribute will be added
+          <button onclick="newfunction()">ADD</button> # onclicking the button, we will get the changes to the paragraph
+          <script src="./script.js">
+          </script>
+      </body>
+
+      </html>
+
+      --> setAttribute allows to add attribute to pre created tag
+    
+    - querySelector --> only applies to the first element it finds
+      - document.querySelector('p').style.background ="yellow"
+
+        --> colors the background yellow of the first p tag it encounters
+        --> instead of p we can also use classname like (.class_name) (mind the dot(.))
+        --> if we user id instead of class or tagname, we use: #id_name , mind the #
+      
+      - function newfunction() {
+            var element = document.querySelector("div > p")
+            element.style.background = "green"
+        }
+        html
+        <div>
+            <h3>h3 tag</h3>
+            <p>first div first para</p>
+        </div>
+
+        <div>
+            <h3>2nd div</h3>
+            <p>second div</p>
+        </div>
+        <button onclick="newfunction()">click!</button>
+
+      - querySelector("a[target]") --> applies to the attribute "target" of tag "a"
+      - querySelector("h1,div,p") --> applies to the first tag it encounters out of h1,div and p
+    
+    - querySelectorAll
+
+      const collection= document.querySelectorAll(".test")
+
+      for (let index = 0; index < collection.length; index++) {
+          collection[index].style.background="green";
+          
+      }
+
+      --> it applies to all the elements with class value as test
+      --> same can be done with tagname, id etc
+    
+    - example of append
+
+      let app = document.querySelector('#app')
+      let langs = ['HTML', 'JS', 'CSS']
+
+      let element=langs.map((lang)=>{
+          let li= document.createElement('li')
+          li.innerHTML=lang
+          return li
+      })
+
+      app.append(...element)
+
+      html:
+      <ul  id="app">
+          <li>hello</li>
+      </ul>
+
+      --> the output will be the langs will be listed as li
+
+    - example of prepend
+      - same example as above, just the list are entered before 'hello'
+    
+    - innerHTML, innerText, textcontent
+      - innerhtml --> gives everything inside, the text, the tags, the spaces etc
+      - innertext --> gives the text only, no tags, no extra spaces etc
+      - textcontent --> gives the text, no tags but includes the extra spaces if there are any
+    
+    - removeAttribute --> to remove any attribute
+      - find the tag using getElement or querySelector and then remove the attribute you want to remove
+    
+  - Event Handling
+    - function alertmsg() {
+          alert("Button is clicked")
+      }
+      document.getElementById("clickme").onclick = alertmsg;
+
+      html:
+      <button id="clickme"> Click!</button>
+
+      on clicking it shows the alert
+
+      we can also use addEventListner('click',alertmsg)
+
+    - function getformval()
+     {
+          var x = document.getElementById("form1")
+          for (var i = 0; i < x.length; i++) {
+              if (x.elements[i].value != "submit") {
+                  x.elements[i].value = "new"
+                  console.log(x.elements[i].value)
+              }
+          }
+      }
+      let form = document.querySelector("#form1")
+      form.addEventListener("click", getformval)
+
+      function removecolor(){
+          var color= document.getElementById('colorselect')
+          color.remove(color.selectedIndex)
+      }
+      document.querySelector('#remove').addEventListener("click",removecolor) # clicking on this will remove the color from the dropdown menu that we created in the HTML file below
+
+      html:
+
+      <form id="form1">
+          First Name: <input type="text" name="fname" value="Daksh" />
+          <br>
+          Last Name: <input type="text" name="fname" value="Bindal" />
+          <input type="submit" name="submit" value="submit" />
+      </form>
+
+      <select  id="colorselect">
+          <option value="red">red</option>
+          <option value="green">green</option>
+          <option value="blue">blue</option>        
+      </select>
+      <!-- <button id="remove">Click here!</button> --> # does same function as the below line
+      <input type="button"  id="remove" value="click to remove">
