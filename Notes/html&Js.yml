@@ -55,7 +55,7 @@
   - != --> not equal value
   - ternary operator
   - Math.random() --> gives random number
-  - this keyword
+  - this keyword --> refrences to the current object executing the function
   - classes
     - class Student{
           fullname= "Daksh Bindal";
@@ -529,7 +529,7 @@
 
         --> colors the background yellow of the first p tag it encounters
         --> instead of p we can also use classname like (.class_name) (mind the dot(.))
-        --> if we user id instead of class or tagname, we use: #id_name , mind the #
+        --> if we user id instead of class or tagname, we use: # id_name , mind the "#"
       
       - function newfunction() {
             var element = document.querySelector("div > p")
@@ -641,3 +641,262 @@
       </select>
       <!-- <button id="remove">Click here!</button> --> # does same function as the below line
       <input type="button"  id="remove" value="click to remove">
+    
+    - classlist
+      function myFunction(){
+          var element= document.getElementById('mydiv')
+          element.classList.add("divstyle")
+      } # add class to the element with the mentioned id
+
+      CSS: 
+      .divstyle{
+          width:100%;
+          background-color: salmon;
+          padding: 1rem;
+          color: white;
+      }
+
+      html:
+      <p>this is a para</p>
+      <button onclick="myFunction()">Click! </button>
+      <div id="mydiv">
+          this is div element
+      </div>
+    
+      - remove the class using --> classList.remove("divstyle") # if mentioned as attribute in the tag already
+    
+    - function myFunction(){
+          var element= document.getElementById('mydiv')
+          element.classList.toggle("divstyle")
+      }
+
+      --> toggle --> we can remvoe and add the classlist by clicking the button
+    
+    - keydown event
+      let keyboard = document.querySelector("#keyboard")
+      keyboard.addEventListener("keydown",(event) =>{
+          console.log(event)
+      })
+
+      html:
+      <input type="text" id="keyboard">
+
+      --> as long as we type inside the input box, in the console there will be an output
+    
+    - keyup
+      --> also event as like keydown, but it will print on console only when key is released
+
+    - keypress
+      --> only prints when there is some alphanumerics involve, not prints when backspace, arrow key etc are used
+    
+    - we want to alert when a user presses any key that we dont want
+
+      let keyboard = document.querySelector("#keyboard")
+      keyboard.addEventListener("keydown",(event) =>{
+          console.log(event)
+          if(event.key == "@")alert("Key not allowed")
+      })
+      --> but it only gives an alert but still adds @ in the input box
+
+    - to prevent from adding
+      let keyboard = document.querySelector("#keyboard")
+      keyboard.addEventListener("keydown", (event) => {
+          console.log(event)
+          if (event.key == "@") {
+              alert("Key not allowed")
+              event.preventDefault()
+          }
+      })
+
+      --> event prevent default does the work here
+
+    - mouse double click event
+      const card = document.querySelector('aside')
+      card.addEventListener('dblclick', (event) => {
+          console.log(event)
+          card.classList.toggle('large');
+      })
+
+      CSS: 
+      aside{
+          background-color: aquamarine;
+          border-radius: 5px;
+          display: inline-block;
+          transform: scale();
+          padding: 1rem;
+          transform-origin: 0 0;
+          transition: transform 0.6s;
+          user-select: none;
+      }
+      .large{
+          transform: scale(1.3);
+      }
+
+      html: 
+      <aside> # semantic tag, doesn't change anything, just for screen readability (As well as user readability)
+          <h3>My card</h3>
+          <p id="p1">Double click to resize</p>
+      </aside>
+
+      --> on double clicking the content on the webpage, there the css will be applied
+    
+    - mouseup and mousedown
+      const card = document.querySelector('aside')
+      card.addEventListener('mousedown', (event) => {
+          console.log(event)
+          document.getElementById("para").style.color = "red"
+      })
+      console.log('File loaded')
+
+      html:
+      <aside>
+          <h3>My card</h3>
+          <p id="p1">Double click to resize</p>
+      </aside>
+
+      <div id="mydiv">Mouse up/down</div>
+      <p id="para">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi nihil voluptatem iure eius aliquid fuga sit laborum expedita illum id.
+      </p>
+      
+      --> will trigger the event on the click of mouse, works same as keyyup and keydown respectively
+    
+    - viewport --> the browser screen where we can do the changes and see them
+      used to see the user engagement (where they click the most)
+
+    - function logkey(event) {
+          screenlog.innerText = `
+          Screen X/Y : ${event.screenX} ${event.screenY}
+          Client X/Y : ${event.clientX} ${event.clientY}
+          Page X/Y : ${event.pageX} ${event.pageY}
+
+          `
+      }
+      let screenlog = document.querySelector("#screen-log")
+      document.addEventListener("mousemove", logkey)
+
+      html:
+      <p>Move Mouse to change data</p>
+      <p id="screen-log"></p>
+
+      --> here the logkey function will show the current x and y values of the screen, client and page
+
+    - creating a ul tag, add li items from the JS and do stylinh changes to it
+      const ul = document.createElement('ul')
+      document.body.appendChild(ul)
+
+      const li1 = document.createElement('li')
+      li1.innerText = "This is first li tag"
+
+      const li2 = document.createElement('li')
+      li2.innerText = "This is 2nd li tag"
+
+      ul.appendChild(li1)
+      ul.appendChild(li2)
+
+      function changeColor(event){
+          console.log(event.target)
+          event.target.style.color="red" #event target
+      }
+      ul.addEventListener("click",changeColor)
+
+      --> everything is done from JS only, no HTML changes were done
+
+    - const text = document.getElementById('nametext')
+      text.addEventListener('focus', () => {
+          text.style.background = "yellow"
+      }) #1 focus is when we click on the input box
+
+      text.addEventListener('blur', () => {
+          text.style.background = "red"
+      }) #2 blur is when we click outside the input box
+
+      const selecttext = document.getElementById('selectTest')
+      selecttext.addEventListener('change', (event) => {
+          console.log(event.target.value)
+      }) #3 change is used to change the value
+
+      const form1=document.getElementById('form1')
+      form1.addEventListener('submit', (event) =>{
+          console.log(event.target.elements)
+          event.preventDefault()
+      }) #4 prevent default prevents the default behavior of the browser
+
+      html:
+      <input type="text" id="nametext">
+      <select id="selectTest">
+          <option value="1">select</option>
+          <option value="2">checkbox</option>
+          <option value="3">RadioButton</option>
+      </select>
+
+      <form action="/action.php" method="post" id="form1">
+          <label for="name">first name</label>
+          <input type="text" name="name" id="first_name" required>        
+          <input type="submit" value="submit">
+      </form>
+    
+    - const timeIdentifier = setTimeout(() => {
+          console.log("This is timeout")
+      }, 500);
+
+      const intervalIdentifier = setInterval(() => {
+          console.log("this is interval")
+      }, 500); 
+      --> console is printed after every 500ms intervals
+ 
+      clearTimeout(timeIdentifier)
+
+      clearInterval(intervalIdentifier)
+    
+    - Scoping
+      - lexical --> inner function can access the variables declared in the outer function(s)
+                    and vice versa isn't true
+      - Closures --> using local variable to global (using functions)
+        -
+          function welcomeall() {
+              let welcome = "new message"
+
+              function sayhi() {
+                  console.log(welcome)
+              }
+              return sayhi
+          }
+
+          let hi = welcomeall()
+          hi()
+
+        - 
+          function myFunction(message) {
+              console.log(message)
+              return function (name) {
+                  return message + ' ' + name
+              }
+          }
+          let ret = myFunction("hello")
+          console.log(ret("daksh"))
+  
+  - Cosntructors
+  - object (extended)
+    - Object.keys(<object_name>) --> return array of all the keys (properties)
+    - Object.values(<object_name>) --> array of all the values
+    - Object.entries(<object_name>) --> returns array of key value pairs
+  - String methods
+    - length --> length of the string
+    - toLowerCase --> converts the whole string to lower case
+    - toUpperCase --> converts to upper case
+    - includes --> checks if the string contains the character or not
+    - startswith, endswith
+    - search --> return the position of the character if found
+    - match --> return the array of the matched data
+    - indexOf --> returns the first occurence of value in the string
+    - lastindexof --> returns the position oif last index
+    - replace
+    - trim --> remove extra whitespaces
+    - charAt --> character at that positon
+    - concat
+    - split
+    - repeat(no_of_times) 
+    - substr
+    - toString --> converts to string
+    - valueOf --> priunt the default string
