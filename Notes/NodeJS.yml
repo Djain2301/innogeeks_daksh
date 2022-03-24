@@ -1,0 +1,139 @@
+- NodeJS is single threaded and have multi instances
+- Event looping --> as nodejs is single threaded, certain tasks has to wait sometimes, to ensure that they run, they are
+  put into a stack so that they can be exacuted later, a loop runs infintely and check the stack for any pending events, this is called event looping
+- REPL
+  - Read-Eval-Print Loop
+- global instead of window object (window object that was in javascript)
+
+- module.exports --> 
+  - each file in nodejs is called as module
+  - to export one file so that another file can use it, module.exports is used
+  - example, helper is the module to be exported to index.js module
+    - helper
+    function logdata(log) {
+        console.log(log)
+    }
+
+    module.exports.logdata = logdata
+
+    - index.js
+    const helper= require("./helper.js")
+    helper.logdata("this is a log")
+
+    --> module.exports.<alias_name>= <function_to_be_exported>
+    --> to export more than one function, put them in a class and export that class
+    --> const helper= require("./helper.js") is importing the file
+    --> helper.<alias_name>, to call that function from the file
+
+- Synchronous vs Asynchronous functions
+  - synch --> must complete their execution before other function starts
+  - async --> runs, doesn't matter if earlier is done or not
+
+  - sunc function example
+    const fs = require("fs");
+    console.log(__dirname)
+    console.log(fs.readdirSync(__dirname))
+    console.log("Data read completed")
+
+    --> console.log(_dirname) --> prints the current dir path
+    --> console.log(fs.readdirSync(__dirname)) --> prints the folders and files in the current dir in the form of a array
+    --> after the list is printed, no matter how long it is then only "data read completed" will be printed, as it is sync (because we used readdirsync)
+
+  - async function example
+    fs.readdir(__dirname, function(err,arr){
+        console.log(arr)
+    })
+    console.log("end of async")
+
+    --> readdir is async function
+    --> as there is a callback function in the function arguement, the readdir is done, it will not wait for the callback function to execute and (here) print the list of the files/folders
+        but will jump to the next operation and prints "end of async".
+    --> this is async function
+
+- Event Handling
+  - here we are creating an event in the helper.js and then emitting it
+    we are then trying to subscribe it throught index.js
+  
+    - index.js
+      const EventEmitter = require('events');
+      
+      const emitter= new EventEmitter();
+      emitter.on("logrecord", (obj) => {
+          console/localStorage("subcribed")
+          console.log(obj.currentLog)
+      })
+      helper.logdata("this is a log")
+
+    - helper.js
+      const EventEmitter = require('events')
+
+      const emitter = new EventEmitter();
+
+
+      function logdata(log) {
+          console.log(log)
+          emitter.emit("Logrecord", { currentLog: log })
+      }
+
+      module.exports.logdata = logdata
+
+      --> events is exporting a class, so we are creating the object emitter
+      --> emiiter.on in index.js is like turning the radio on and waiting for the frequency, while .emit is already transmitted the freq
+      --> then helper.logdata("this is a log") -> calls the helper.js and it catches the frequenect
+      --> this will not work...
+      --> it will not work because there are two instances of "emitter", one in index and another in helper
+      --> and one instance has no relation with the other instance
+      --> to tackle it, we create another module and in it we export the instance only, not some function made out of it
+    
+    - index.js
+      const EventHelper = require("./eventhelper.js");
+      const eventobj= new EventHelper()
+
+      eventobj.on("LOGRECORDED", (result) =>{
+          console.log(JSON.stringify(result))
+      })
+
+      eventobj.triggerEvent("DATA PASSED")
+
+    - eventhelper.js
+      const EventEmitter = require('events')
+
+      class EventHelper extends EventEmitter {
+          triggerEvent(logs) {
+              this.emit("LOGRECORDED", { currentlog: logs })
+          }
+
+      }
+
+      module.exports = EventHelper;
+
+      --> class EventHelper is the instance which we are exporting
+      --> now as the instance is same, the subscription will be done and the log statement "data passed" will be printed
+
+- publishing npm package
+  - we created a npm folder
+    - npm init --yes
+    - change the name in package.json to your desrired repo name
+    - change the version on subsquent publishes
+    - now create the index.js and put your code there, example
+
+      module.exports.calculate= function (total, tax, currency) {
+          return total + total * (tax / 100) + " " + currency
+      }
+      
+      --> here we are directly exporting the function created, or we export the class with all the functions
+    - now go to npmjs.com
+    - sign in
+    - in your local terminal
+      - npm login
+        - type in the credentials
+      - npm publish 
+        - will be published with the name and version as in the package.json
+    - now your package is published at the npm
+    - to install -> npm install <package_name>
+    - if we have already installed the package and we think that the package is updated
+      - as we have installed the package so it will be in dependencies
+      - run --> npm update 
+
+- assignment:- to create an npm package, publish it, create a docker, in its index.js import this package, build the image, publish the image, pull it and run the container
+  

@@ -191,6 +191,7 @@
 
 - sharing the image created
   - publishing the image using docker hub
+    - the image should be build locally first
     - create a repository in dockerhub
     - docker push <image_name> --> push the image to repo (use the image name as mentioned in dockerhub)
     - docker login --> to login to dockerhub
@@ -281,8 +282,9 @@
     - <important> sudo docker run --name mynode_new -p 8000:1000 -e MYPORT=1000 mynode:5.0
       - the above command
       - -e --> to devlare env vraiable MYPORT
-      - we can also add -rm to remove the container automaticallt once it is stopped
-    - index.ks file
+      - we can also add -rm to remove the container automatically once it is stopped
+      - env variable are of string type, use typecasting to convert to other formats
+    - index.js file
       const express = require("express")
 
       const app = express()
