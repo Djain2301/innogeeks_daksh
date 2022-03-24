@@ -899,4 +899,4 @@
     - repeat(no_of_times) 
     - substr
     - toString --> converts to string
-    - valueOf --> priunt the default string
+    - valueOf --> print the default string
